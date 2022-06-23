@@ -1,3 +1,6 @@
+
+#use environment after running step 1
+
 #summary_backup <- summary
 summary <- summary_backup
 
@@ -69,7 +72,7 @@ qqline(resid(lme.s))
 
 #fit best model by ml as quality check
 
-lme.dredge <-  lme(log(resp) ~ temp_mean + press_mean + speedBL + tunnel + run, 
+lme.dredge <- lme(log(resp) ~ temp_mean + press_mean + speedBL + tunnel + run, 
               random = ~1+speedBL|ID, #fill in the wanted RE structure
               data = summary,
               method ="ML",
@@ -202,15 +205,15 @@ ggplot(ideal, aes(x=temp_mean, y=resp)) +
 
 ############################GRAPH SUPPLEMENTARY##############################
 
-
-#-------------plot swimming speeds---------------#
 {
+#-------------plot swimming speeds---------------#
+
   ggplot(summary, aes(speedBL))+
     geom_histogram(bins = 25)+
     facet_wrap(~ID_temp_press)
-}
+
 #----------------------Speed vs Resp-----------------------------#
-{
+
   ggplot(summary, aes(x=speedBL, y=resp)) +
     geom_point(size=0.2)+ 
     theme_bw()+
@@ -222,10 +225,10 @@ ggplot(ideal, aes(x=temp_mean, y=resp)) +
     xlim(0.4, 0.8)+
     facet_grid(ntemp ~ ID_press)+
     guides(shape=FALSE)
-}
+
 
 #----------------------Speed vs Temp-----------------------------#
-{
+
   ggplot(summary, aes(x=resp, y=speedBL)) +
     geom_point(size=0.2)+ 
     theme_bw()+
@@ -237,3 +240,4 @@ ggplot(ideal, aes(x=temp_mean, y=resp)) +
     #xlim(0.4, 0.8)+
     facet_wrap(~ID)+
     guides(shape=FALSE)
+}
