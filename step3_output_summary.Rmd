@@ -9,7 +9,8 @@ output:
 ```{r Initial formatting, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE)
 
-load("./models_fitted_new.RData")
+
+load("./data/models_fitted_new.RData")
 
 summary$ID_time <- as.numeric(summary$ID_time)
 summary$run <-as.factor(summary$run)
@@ -117,6 +118,11 @@ fig1 <- tag_facet2(
   facet_grid(run ~ tunnel, labeller = labeller(tunnel = tunnel.names, run = run.names))+
   guides(shape=FALSE),
   open ="", close ="", hjust = -1.2) 
+
+#add plot with temp for qual check
+  ggplot(summary, aes(x=datetime_min, y=temp_mean)) +
+    geom_line(aes(col = tunnel))
+  
 
 ggsave("Fig1.pdf", fig1, device = "pdf", height = 7, width = 8, dpi = 300)
 
